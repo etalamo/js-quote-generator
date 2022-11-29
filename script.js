@@ -7,6 +7,18 @@ const newQuoteBtn = document.getElementById("new-quote");
 //Global variable apiQuotes
 let apiQuotes = [];
 
+// Loader
+function showLoader() {
+    loader.hidden = false;
+    quoteContainer.hidden = true;
+}
+
+//Hider Loader
+function hideLoader() {
+    quoteContainer.hidden = false;
+    loader.hidden = true;
+}
+
 //Show New Quote
 function newQuote(){
     //Pick a random quote from apiQuotes array
@@ -31,11 +43,13 @@ function newQuote(){
 
 // Get quotes from API
 async function getQuotes() {
+    showLoader();
     const apiUrl = 'https://jacintodesign.github.io/quotes-api/data/quotes.json';
     try {
         const response = await fetch(apiUrl);
         apiQuotes = await response.json();
         newQuote();
+        hideLoader();
     }
     catch(error){
         //Catch error here
